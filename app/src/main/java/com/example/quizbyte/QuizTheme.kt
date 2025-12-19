@@ -30,24 +30,30 @@ fun QuizByteTheme(
             secondary = Color(0xFFA855F7),
             tertiary = Color(0xFFEC4899),
             background = Color(0xFF020617),
-            surface = Color(0xFF020617)
+            surface = Color(0xFF0F172A),
+            onBackground = Color(0xFFE5E7EB),
+            onSurface = Color(0xFFE5E7EB),
+            onPrimary = Color.White
         )
     } else {
         lightColorScheme(
-            primary = Color(0xFF0F172A),
-            secondary = Color(0xFF1E293B),
-            tertiary = Color(0xFF2563EB),
-            background = Color(0xFFE5F2FF),
-            surface = Color(0xFFFFFFFF)
+            primary = Color(0xFF2563EB),
+            secondary = Color(0xFF7C3AED),
+            tertiary = Color(0xFFDB2777),
+            background = Color(0xFFF0F9FF),
+            surface = Color(0xFFFFFFFF),
+            onBackground = Color(0xFF0F172A),
+            onSurface = Color(0xFF1E293B),
+            onPrimary = Color.White
         )
     }
 
     val typo = Typography(
         bodyLarge = MaterialTheme.typography.bodyLarge.copy(
-            color = Color(0xFFE5E7EB)
+            color = colors.onBackground
         ),
         titleLarge = MaterialTheme.typography.titleLarge.copy(
-            color = Color.White,
+            color = colors.onBackground,
             fontWeight = FontWeight.Bold
         )
     )
@@ -60,13 +66,23 @@ fun QuizByteTheme(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
-                    Brush.verticalGradient(
-                        listOf(
-                            Color(0xFF020617),
-                            Color(0xFF111827),
-                            Color(0xFF020617)
+                    if (isDark) {
+                        Brush.verticalGradient(
+                            listOf(
+                                Color(0xFF020617),
+                                Color(0xFF111827),
+                                Color(0xFF020617)
+                            )
                         )
-                    )
+                    } else {
+                        Brush.verticalGradient(
+                            listOf(
+                                Color(0xFFF0F9FF),
+                                Color(0xFFE0F2FE),
+                                Color(0xFFF0F9FF)
+                            )
+                        )
+                    }
                 )
         ) {
             // лёгкое неоновое “сияние” по краям
@@ -75,10 +91,17 @@ fun QuizByteTheme(
                     .fillMaxSize()
                     .background(
                         Brush.radialGradient(
-                            colors = listOf(
-                                Color(0x5538BDF8),
-                                Color.Transparent
-                            ),
+                            colors = if (isDark) {
+                                listOf(
+                                    Color(0x5538BDF8),
+                                    Color.Transparent
+                                )
+                            } else {
+                                listOf(
+                                    Color(0x332563EB),
+                                    Color.Transparent
+                                )
+                            },
                             center = DpOffset(40.dp, 120.dp).let {
                                 Offset(it.x.value, it.y.value)
                             },
